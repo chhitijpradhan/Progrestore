@@ -1,30 +1,26 @@
-import express from "express" ;
-import helmet from "helmet";
-import morgan from "morgan";
-import cors from "cors";
-import dotenv from "dotenv";
+import express from 'express';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
-import productRoutes from "./routes/productRoutes.js"
-import { sql } from "./config.js/db.js";
 
+import productRoutes from './routes/productRoutes.js';
+import { sql } from './config/db.js';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000 
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 
-app.get("/",(req,res)=>{
-    res.send("hello")
-})
+app.use('/api/products', productRoutes);
 
-app.get("/api/products", productRoutes )
-
-async function initDB(){
-    try{
+async function initDB() {
+    try {
         await sql`
             CREATE TABLE IF NOT EXISTS products (
             id SERIAL PRIMARY KEY,
@@ -34,14 +30,15 @@ async function initDB(){
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `;
-        console.log("db inital sucess")
-    }catch(error) {
-        console.log("Error initDB",error)
+        console.log('db initial success');
+    } catch (error) {
+        console.log('Error initDB', error);
     }
 }
 
-initDB().then(()=>{
-    app.listen(PORT, ()=>{
-        console.log("server running on port " + PORT)
+initDB().then(() => {
+    
+    app.listen(PORT, () => {
+        console.log(`server running on port ${PORT}`);
     });
-})
+});
