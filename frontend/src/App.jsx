@@ -1,7 +1,7 @@
 import  Navbar from "./components/NAvbar";
 
 import HomePage from "./pages/HomePage";
-import ProductPage from "./ProductPage";
+import ProductPage from "./pages/ProductPage"
 function App() {
  
 
@@ -12,6 +12,7 @@ function App() {
       <Navbar></Navbar>
       <HomePage></HomePage>
       <ProductPage></ProductPage>
+
 
     </div>
   )
