@@ -15,6 +15,20 @@ export const getProducts = async (req, res) => {
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 };
+export const getProduct = async (req, res ) => {
+           try {
+               console.log("Attempting to fetch product from database...");
+               const product = await sql`
+                   SELECT * FROM products
+                   WHERE id = ${req.params.id}
+               `;
+               console.log("Fetched product:", product);
+               res.status(200).json({ success: true, data: product });
+           } catch (error) {
+               console.error("Error in getProduct function:", error);   
+               res.status(500).json({ success: false, message: "Internal Server Error" });
+           }
+};
 
 export const createProduct = async (req, res) => {
 const { name, image, price } = req.body;
@@ -36,20 +50,6 @@ const { name, image, price } = req.body;
     }
 };
 
-export const getProduct = async (req, res ) => {
-           try {
-               console.log("Attempting to fetch product from database...");
-               const product = await sql`
-                   SELECT * FROM products
-                   WHERE id = ${req.params.id}
-               `;
-               console.log("Fetched product:", product);
-               res.status(200).json({ success: true, data: product });
-           } catch (error) {
-               console.error("Error in getProduct function:", error);   
-               res.status(500).json({ success: false, message: "Internal Server Error" });
-           }
-};
 
 export const updateProduct = async (req,res ) => {
     try {
