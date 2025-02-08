@@ -1,6 +1,7 @@
-import Navbar from "./components/Navbar;
+import  Navbar from "./components/NAvbar";
 
-
+import HomePage from "./pages/HomePage";
+import ProductPage from "./ProductPage";
 function App() {
  
 
@@ -9,6 +10,8 @@ function App() {
 
       hii
       <Navbar></Navbar>
+      <HomePage></HomePage>
+      <ProductPage></ProductPage>
 
     </div>
   )
