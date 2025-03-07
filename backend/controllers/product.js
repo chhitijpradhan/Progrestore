@@ -15,27 +15,27 @@ export const getProducts = async (req, res) => {
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 };
-export const getProduct = async (req, res ) => {
-           try {
-               console.log("Attempting to fetch product from database...");
-               const product = await sql`
+export const getProduct = async (req, res) => {
+    try {
+        console.log("Attempting to fetch product from database...");
+        const product = await sql`
                    SELECT * FROM products
                    WHERE id = ${req.params.id}
                `;
-               console.log("Fetched product:", product);
-               res.status(200).json({ success: true, data: product });
-           } catch (error) {
-               console.error("Error in getProduct function:", error);   
-               res.status(500).json({ success: false, message: "Internal Server Error" });
-           }
+        console.log("Fetched product:", product);
+        res.status(200).json({ success: true, data: product });
+    } catch (error) {
+        console.error("Error in getProduct function:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
 };
 
 export const createProduct = async (req, res) => {
-const { name, image, price } = req.body;
+    const { name, image, price } = req.body;
     try {
-        if (!name  || !image || !price){
+        if (!name || !image || !price) {
             return res.status(400).json({
-                success: false, message : "Please provide all the required fields"
+                success: false, message: "Please provide all the required fields"
             })
         }
         const newProduct = await sql`
@@ -51,7 +51,7 @@ const { name, image, price } = req.body;
 };
 
 
-export const updateProduct = async (req,res ) => {
+export const updateProduct = async (req, res) => {
     try {
         const { name, image, price } = req.body;
         const updatedProduct = await sql`
